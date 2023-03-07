@@ -3,10 +3,23 @@ import '../styles/App.scss';
 
 function App() {
   const [numberOfErrors, setNumberOfErrors] = useState(0);
+  const [lastLetter, setLastLetter] = useState('');
+
+  const handleChangeLetter = (ev) => {
+    ev.preventDefault();
+    const pattern = new RegExp('^[A-Za-z]+$');
+    if (!pattern.test(ev.target.value)) {
+      alert('tiene que ser una letra');
+    } else {
+      setLastLetter(ev.target.value);
+    }
+  };
+
   const handleClick = (ev) => {
     ev.preventDefault();
-    setNumberOfErrors(numberOfErrors+1);
-  }
+    setNumberOfErrors(numberOfErrors + 1);
+  };
+
   return (
     <div className='page'>
       <header>
@@ -50,6 +63,8 @@ function App() {
               type='text'
               name='last-letter'
               id='last-letter'
+              value={lastLetter}
+              onChange={handleChangeLetter}
             />
           </form>
         </section>
@@ -73,5 +88,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
