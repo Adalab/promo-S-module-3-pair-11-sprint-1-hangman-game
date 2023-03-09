@@ -4,6 +4,20 @@ import '../styles/App.scss';
 function App() {
   const [numberOfErrors, setNumberOfErrors] = useState(0);
   const [lastLetter, setLastLetter] = useState('');
+  const [word, setWord] = useState('katakroker');
+  const [userLetter, setUserLetter] = useState([]);
+
+  const renderSolutionLetters = (ev) => {
+    const wordLetters = word.split('');
+    const renderLetters = wordLetters.map((letter, index) => {
+  if(word.includes(userLetter)){
+        <li key= {index} class="letter">{userLetter}</li>
+      } else {
+        <li key= {index} class="letter"></li>
+      }
+    })
+    return renderLetters
+  }
 
   const handleChangeLetter = (ev) => {
     ev.preventDefault();
@@ -12,6 +26,9 @@ function App() {
       alert('tiene que ser una letra');
     } else {
       setLastLetter(ev.target.value);
+      setUserLetter([...userLetter,ev.target.value]);
+      // setUserLetter(ev.target.value);
+      
     }
   };
 
@@ -29,17 +46,7 @@ function App() {
         <section>
           <div className='solution'>
             <h2 className='title'>Solución:</h2>
-            <ul className='letters'>
-              <li className='letter'>k</li>
-              <li className='letter'>a</li>
-              <li className='letter'></li>
-              <li className='letter'>a</li>
-              <li className='letter'>k</li>
-              <li className='letter'>r</li>
-              <li className='letter'></li>
-              <li className='letter'>k</li>
-              <li className='letter'>e</li>
-              <li className='letter'>r</li>
+            <ul className='letters'>{renderSolutionLetters()}
             </ul>
           </div>
           <div className='error'>
@@ -87,5 +94,5 @@ function App() {
       </main>
     </div>
   );
-}
+  };
 export default App;
