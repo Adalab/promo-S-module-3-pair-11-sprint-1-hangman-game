@@ -10,14 +10,18 @@ function App() {
   const renderSolutionLetters = (ev) => {
     const wordLetters = word.split('');
     const renderLetters = wordLetters.map((letter, index) => {
-  if(word.includes(userLetter)){
-        <li key= {index} class="letter">{userLetter}</li>
+      if (word.includes(userLetter)) {
+        return (
+          <li key={index} class='letter'>
+            {userLetter}
+          </li>
+        );
       } else {
-        <li key= {index} class="letter"></li>
+        return <li key={index} class='letter'></li>;
       }
-    })
-    return renderLetters
-  }
+    });
+    return renderLetters;
+  };
 
   const handleChangeLetter = (ev) => {
     ev.preventDefault();
@@ -26,10 +30,21 @@ function App() {
       alert('tiene que ser una letra');
     } else {
       setLastLetter(ev.target.value);
-      setUserLetter([...userLetter,ev.target.value]);
+      setUserLetter([...userLetter, ev.target.value]);
       // setUserLetter(ev.target.value);
-      
     }
+  };
+
+  const renderErrorLetters = (ev) => {
+    const filterErrorLetters = userLetter.filter(
+      (letter) =>
+        !word.includes(letter)).map((letter, index) => (
+          <li key={index} class='letter'>
+            {userLetter}
+          </li>
+        ))
+    ;
+    return filterErrorLetters;
   };
 
   const handleClick = (ev) => {
@@ -46,17 +61,17 @@ function App() {
         <section>
           <div className='solution'>
             <h2 className='title'>Solución:</h2>
-            <ul className='letters'>{renderSolutionLetters()}
-            </ul>
+            <ul className='letters'>{renderSolutionLetters()}</ul>
           </div>
           <div className='error'>
             <h2 className='title'>Letras falladas:</h2>
             <ul className='letters'>
-              <li className='letter'>f</li>
+              {renderErrorLetters()}
+              {/* <li className='letter'>f</li>
               <li className='letter'>q</li>
               <li className='letter'>h</li>
               <li className='letter'>p</li>
-              <li className='letter'>x</li>
+              <li className='letter'>x</li> */}
             </ul>
           </div>
           <form className='form'>
@@ -94,5 +109,5 @@ function App() {
       </main>
     </div>
   );
-  };
+}
 export default App;
